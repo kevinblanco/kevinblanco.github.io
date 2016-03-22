@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: life style | KevinBlanco.io]]></title>
+  <link href="http://kevinblanco.github.io/blog/categories/life-style/atom.xml" rel="self"/>
+  <link href="http://kevinblanco.github.io/"/>
+  <updated>2016-03-21T19:59:32-06:00</updated>
+  <id>http://kevinblanco.github.io/</id>
+  <author>
+    <name><![CDATA[Kevin Blanco]]></name>
+    <email><![CDATA[mail@kevinblanco.io]]></email>
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Defining a life path]]></title>
+    <link href="http://kevinblanco.github.io/blog/2016/03/19/defining-a-life-path/"/>
+    <updated>2016-03-19T14:21:24-06:00</updated>
+    <id>http://kevinblanco.github.io/blog/2016/03/19/defining-a-life-path</id>
+    <content type="html"><![CDATA[<hr />
+
+<p>After may may</p>
+
+<pre><code class="javascript Hello.js "> var a = "Hello";
+</code></pre>
+]]></content>
+  </entry>
+  
+</feed>
