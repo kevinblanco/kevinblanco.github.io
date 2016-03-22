@@ -5,11 +5,11 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>KevinBlanco.io</title>
+  <title>Category: rest - KevinBlanco.io</title>
   <meta name="author" content="Kevin Blanco">
 
   
-  <meta name="description" content="api, drupal, drupal8, rest, views Build a Quick RESTful View in Drupal 8 Drupal 8 is the new version of Drupal that actually came out just a couple &hellip;">
+  <meta name="description" content="Category: rest">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -18,7 +18,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://kevinblanco.github.io">
+  <link rel="canonical" href="http://kevinblanco.github.io/blog/categories/rest">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/styles.css" media="screen, projection" rel="stylesheet" type="text/css">
   <link href="/feed.xml" rel="alternate" title="KevinBlanco.io" type="application/atom+xml">
@@ -144,77 +144,37 @@
 </div>
 		</aside>
 		
-      
+      <div>
+<article role="article">
+  
+  <header>
+    <h1 class="entry-title">Category: Rest</h1>
+  </header>
+  
+  <div id="blog-archives" class="category">
 
+
+
+  
+  <h2>2016</h2>
 
 <article>
-	<header>
-  <div class="article-tags">
-      
-
-<span class="categories">
   
-    <a class='category' href='/blog/categories/api/'>api</a>, <a class='category' href='/blog/categories/drupal/'>drupal</a>, <a class='category' href='/blog/categories/drupal8/'>drupal8</a>, <a class='category' href='/blog/categories/rest/'>rest</a>, <a class='category' href='/blog/categories/views/'>views</a>
-  
-</span>
+<h1><a href="/blog/2016/03/21/build-a-quick-restful-view-in-drupal-8/">Build a Quick RESTful View in Drupal 8</a></h1>
+<time datetime="2016-03-21T20:06:54-06:00" pubdate><span class='month'>Mar</span> <span class='day'>21</span> <span class='year'>2016</span></time>
 
-
-  </div>
-  
-    <h1><a href="/blog/2016/03/21/build-a-quick-restful-view-in-drupal-8/">
-      Build a Quick RESTful View in Drupal 8
-    </a></h1>
-  
-</header>
-
-  <section><hr />
-
-<p>Drupal 8 is the new version of Drupal that actually came out just a couple of months ago and which development phase started at 2011, so it brings a lot of new chages to the table including <a href="http://symfony.com/blog/symfony2-meets-drupal-8">Symphony components</a>, <a href="https://www.drupal.org/theme-guide/8/twig">Twig as the template engine</a> and many <a href="https://www.drupal.org/8">other changes</a>.</p>
-
-<p>One of the new changes added to Drupal8 is that Views module is now <a href="https://www.drupal.org/node/1912118">part of the core</a>, which is something that makes a lot of sense, since Views is part of pretty much all Drupal sites.</p>
-
-<p>With RESTful Web Services also in Core, we now have all the tools we need to create highly customizable solutions out of the box in regards to RESTful services.</p>
-
-<p>In this blog post, I will show you how to create a view that returns a list of cars (content-type) in JSON via the REST API. Let’s get started!</p>
-
-<p>First you need a Drupal 8 installation, if you don&rsquo;t have one, it&rsquo;s very easy to get up and running using <a href="https://drupalconsole.com/">Drupal Console</a>&rsquo;s command <code>$ drupal site:new</code> or if you prefer a more visual way, you can download and use <a href="https://www.acquia.com/downloads">Acquia&rsquo;s Dev Desktop</a> and use the wizard to create a new site.</p>
-
-<h1>Activate required modules</h1>
-
-<p>For our little example, we will need to activate Drupal Core&rsquo;s <strong>RESTful Web Services</strong> and <strong>Serialization</strong> modules. To do this go to <strong><em>Extend</em></strong> and find/activate the modules mentioned above. Also make sure that <strong>Views</strong> and <strong>Views UI</strong> are enabled (they usually are by default).</p>
-
-<p><img src="/images/modules.png"></p>
-
-<h1>Create the content type</h1>
-
-<p>I want a service that returns a list of cars in sale in JSON format, so Drupal will take care of managing the content, and on a later post i&rsquo;m currently working on, we&rsquo;ll consume the API with Angular2.</p>
-
-<p>Let&rsquo;s create a new content type called <code>Car</code> and add some fields for <code>Price</code>, <code>Photo</code>, <code>Brand</code>, <code>Model</code> and <code>Type</code>.  Go to <strong><em>Structure > Content Types > Add Content Type</em></strong> and fill the requested fields. For the <code>Title</code> field label it as <code>Name</code>. Here&rsquo;s a photo of how my content type looks:
-<img src="/images/content_type.png"></p>
-
-<p>Now, we might want to create a few cars before we create the service so we have content to return. Also you can use the <a href="https://www.drupal.org/project/devel">Devel</a> to generate &ldquo;Dummy&rdquo; content for testing. If you are using Drupal Console just use <code>$ drupal module:download devel</code> and then <code>$ drupal module:install devel</code>. Then just go to <strong><em>Configuration > Development > Generate content</em></strong>, and create a bunch of cars.</p>
-
-<h1>Creating the view</h1>
-
-<p>Now let’s create our view. Go to <strong><em>Structure > Views > Add new view</em></strong>. Name it <code>Cars</code> and select <code>Cars</code> in the <strong>type</strong> selector.  We do not need to create a page or block, so uncheck those options to keep things simple and check <code>Provide a REST export</code> and define the path you wich the API respond to, in my case <code>api/cars/view</code>.
-<img src="/images/view_setup.png"></p>
-
-<p>After you hit <code>Save and edit</code> you will be prompted with a regular Drupal View UI, the only difference is that the output will be JSON. As any other View, you can control access by role, use contextual filters, sorting, etc.</p>
-</section>
-  
-  
-
+<footer>
+  <span class="categories">posted in <a class='category' href='/blog/categories/api/'>api</a>, <a class='category' href='/blog/categories/drupal/'>drupal</a>, <a class='category' href='/blog/categories/drupal8/'>drupal8</a>, <a class='category' href='/blog/categories/rest/'>rest</a>, <a class='category' href='/blog/categories/views/'>views</a></span>
+</footer>
 
 
 </article>
 
-<div class="pagination">
-
-
-
 </div>
 
-
+  
+</article>
+</div>
     </div>
   </div>
   <footer class="main-footer">

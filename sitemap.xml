@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 <url>
-<loc>http://kevinblanco.github.io/blog/2016/03/19/defining-a-life-path/</loc>
-<lastmod>2016-03-19T14:21:24-06:00</lastmod>
+<loc>http://kevinblanco.github.io/blog/2016/03/21/build-a-quick-restful-view-in-drupal-8/</loc>
+<lastmod>2016-03-21T20:06:54-06:00</lastmod>
 </url>
 <url>
 <loc>http://kevinblanco.github.io/blog/archives/</loc>
@@ -11,6 +11,18 @@
 <loc>http://kevinblanco.github.io/</loc>
 </url>
 <url>
-<loc>http://kevinblanco.github.io/blog/categories/life-style/</loc>
+<loc>http://kevinblanco.github.io/blog/categories/drupal/</loc>
+</url>
+<url>
+<loc>http://kevinblanco.github.io/blog/categories/rest/</loc>
+</url>
+<url>
+<loc>http://kevinblanco.github.io/blog/categories/views/</loc>
+</url>
+<url>
+<loc>http://kevinblanco.github.io/blog/categories/api/</loc>
+</url>
+<url>
+<loc>http://kevinblanco.github.io/blog/categories/drupal8/</loc>
 </url>
 </urlset>
