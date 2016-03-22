@@ -1,0 +1,30 @@
+<div id="main-nav">
+    <nav>
+        <ul>
+        	<li>
+        		{% if site.blog_index_asides.size %}
+					{% include_array blog_index_asides %}
+				{% else %}
+					{% include_array default_asides %}
+				{% endif %}
+        	</li>
+        	<li>
+
+            <h1>Connect with me</h1>
+        		<ul>
+                    <li>Github - <a href="http://www.github.com/kevinblanco" target="_blank">github.com/kevinblanco</a></li>
+                    <li>Twitter - <a href="http://www.twitter.com/KevinBlancoZ" target="_blank">@KevinBlancoZ</a></li>
+                    <li>Email - <a href="mailto:mail@kevinblanco.io" target="_blank">mail@kevinblanco.io</a></li>
+                    <li>Costa Rica JS Community - <a href="http://www.meetup.com/costaricajs/" target="_blank">Meetup Group</a></li>
+                    <li>Brainstation <a href="http://www.brainstation.io/city/san-jose" target="_blank">Costa Rica</a></li>
+                    <li>Drupal <a href="https://groups.drupal.org/costa-rica" target="_blank">Costa Rica</a></li>
+                    <li>Drupal.org <a href="https://www.drupal.org/user/1349878" target="_blank">Profile</a></li>
+        		</ul>
+                <hr>
+                <h2><strong>Drupal Association Member</strong></h2> 
+                <a href="https://www.drupal.org/user/1349878"><img src="/images/member.png"></a>
+           
+        	</li>
+        </ul>
+    </nav>
+</div>
