@@ -4,7 +4,7 @@
   <title><![CDATA[Category: views | KevinBlanco.io]]></title>
   <link href="http://kevinblanco.github.io/blog/categories/views/atom.xml" rel="self"/>
   <link href="http://kevinblanco.github.io/"/>
-  <updated>2016-03-21T20:40:37-06:00</updated>
+  <updated>2016-03-23T19:23:36-06:00</updated>
   <id>http://kevinblanco.github.io/</id>
   <author>
     <name><![CDATA[Kevin Blanco]]></name>
@@ -14,13 +14,81 @@
 
   
   <entry>
+    <title type="html"><![CDATA[Drupal Views: The Power of Contextual Filters]]></title>
+    <link href="http://kevinblanco.github.io/blog/2016/03/23/drupal-views-the-power-of-contextual-filters/"/>
+    <updated>2016-03-23T19:12:31-06:00</updated>
+    <id>http://kevinblanco.github.io/blog/2016/03/23/drupal-views-the-power-of-contextual-filters</id>
+    <content type="html"><![CDATA[<p>On my <a href="http://kevinblanco.io/blog/2016/03/21/build-a-quick-restful-view-in-drupal-8/">last blog entry</a> I talked about how to build a quick RESTful view in Drupal 8 taking advantage of the RESTful Web Services module that is now in Core. The small endpoint I built returns an array of cars in sale, with relative information about each car. You can see the endpoit working here: <code>http://dev-cars-api.pantheonsite.io/api/cars</code> and here&rsquo;s my view configuration until now:
+<img src="/images/view-final.png"></p>
+
+<p>Very straigtforward, i&rsquo;m just showing fields of the <code>Cars</code> content type.</p>
+
+<h1>What are Contextual Filters useful for?</h1>
+
+<p>Right now my view endpoint return all cars in sale, and there&rsquo;s no chance for filtering the results. In a real life app where we would consume this API, we would want to filter them by <strong>brand</strong> or <strong>type</strong>, and even <strong>price range</strong>, etc. We can accomplish this with contextual filters.</p>
+
+<p><strong>Contextual Filters are, in scence, URL arguments that filter the content of the view</strong>, that&rsquo;s the simplest explanation. So let&rsquo;s say that perhaps you want to get all <code>Land Rover</code> cars in sale, or all <code>Toyota</code> <strong>and</strong> <code>4x4</code> cars, so let&rsquo;s do it.</p>
+
+<hr />
+
+<h1>Filter car by Brand and Type</h1>
+
+<p><strong>Add the contextual filter:</strong></p>
+
+<p>Go to your view and find the <code>Advanced</code> area, usually located right side or the screen and click on <strong>&ldquo;Add&rdquo;</strong> button next to the <strong>&ldquo;Contextual Filters&rdquo;</strong> label. Now find the field you want to add as an URL argument, in my case is called <code>Brand</code> and you will be prompted with some options</p>
+
+<ul>
+<li><em>WHEN THE FILTER VALUE IS NOT AVAILABLE</em>  <strong>=></strong> What to display when the argument is not present in the URL. In my case if the argument is not sent I want all cars to be returned, but you can change it for your use case.  You can provide a fixed value, or a &ldquo;No results found&rdquo; response, etc.</li>
+<li><em>WHEN THE FILTER VALUE IS AVAILABLE OR A DEFAULT IS PROVIDED</em> <strong>=></strong> Here you can define settings like overriding the view title or defining a validation criteria, this is a very powerful configuration that I won&rsquo;t cover in this post, but I will expand it later.</li>
+</ul>
+
+
+<p>Go ahead and click save as it is for now, save the View configuration as well. <strong>And that&rsquo;s it!!</strong> Let&rsquo;s give it a try, I want all Toyota cars in sale, just go to <code>http://dev-cars-api.pantheonsite.io/api/cars/Toyota</code> and you will see on the response only the toyota cars. If you remove the <code>Toyota</code> from the URL you will still get all of them. What goes after the <code>http://dev-cars-api.pantheonsite.io/api/cars/</code> it&rsquo;s the argument, in this case <code>{Toyota}</code>.</p>
+
+<pre><code>[
+  {
+    "name": "Toyota Vitz",
+    "brand": "Toyota",
+    "price": "$7500.00",
+    "type": "Sedan",
+    "photo": "http://dev-cars-api.pantheonsite.io/sites/default/files/styles/large/public/2016-03/Toyota_Yaris_front_20080104.jpg?itok=uJMZTbHm",
+    "description": "Small and compact, cheap and fast"
+  }
+]
+</code></pre>
+
+<p>This query works as a SQL <code>LIKE</code> statement so you can send just a piece of the name and Views will try to find all records <code>LIKE</code> that argument, example, I have a brand called  <code>Land Rover</code> but if I just send <code>Land</code> as an argument it will work <code>http://dev-cars-api.pantheonsite.io/api/cars/Land</code></p>
+
+<pre><code>[
+  {
+    "name": "Land Rover Defender",
+    "brand": "Land Rover",
+    "price": "$15000.00",
+    "type": "4X4",
+    "photo": "http://dev-cars-api.pantheonsite.io/sites/default/files/styles/large/public/2016-03/L550_15ACC_EXT_LOC02_V1_04__293-111196_500x330.jpg?itok=w5Gud-8b",
+    "description": "A great car in great conditions, it only has 4000miles and new whells"
+  }
+]
+</code></pre>
+
+<p>Now go ahead and do the same but this time add a Contextual Filter by <code>Type</code>. In this case my <code>Type</code> field defines the car type (sedan, 4x4, truck, etc) so it&rsquo;s a very important filter I want to have.</p>
+
+<p>This will be a second argument in the URL, so it will be <code>api/cars/{brand}/{type}</code>. Now let&rsquo;s find all the Toyota cars that are 4x4 by making a request to <code>http://dev-cars-api.pantheonsite.io/api/cars/toyota/4x4</code>. There you got! Now we are not only filtering by <code>Brand</code> but also <code>Type</code>.</p>
+
+<p>So now we have finally implemented 2 contextual filters and our little basic API can filter out content, isn&rsquo;t great? On following episodes I will explain about validation criterias which can be really usefull in some cases.</p>
+
+<p>If you have any questions shoot me a comment, a tweet or an email.</p>
+]]></content>
+  </entry>
+  
+  <entry>
     <title type="html"><![CDATA[Build a quick RESTful View in Drupal 8]]></title>
     <link href="http://kevinblanco.github.io/blog/2016/03/21/build-a-quick-restful-view-in-drupal-8/"/>
     <updated>2016-03-21T20:06:54-06:00</updated>
     <id>http://kevinblanco.github.io/blog/2016/03/21/build-a-quick-restful-view-in-drupal-8</id>
     <content type="html"><![CDATA[<hr />
 
-<p>Drupal 8 is the new version of Drupal that actually came out just a couple of months ago and which development phase started at 2011, so it brings a lot of new chages to the table including <a href="http://symfony.com/blog/symfony2-meets-drupal-8">Symphony components</a>, <a href="https://www.drupal.org/theme-guide/8/twig">Twig as the template engine</a> and many <a href="https://www.drupal.org/8">other changes</a>.</p>
+<p>Drupal 8 is the new version of Drupal that actually came out just a couple of months ago and which development phase started at 2011, so it brings a lot of new chages to the table including <a href="http://symfony.com/blog/symfony2-meets-drupal-8">Symphony components</a>, <a href="https://www.drupal.org/theme-guide/8/twig">Twig as the template engine</a> and many <a href="https://www.drupal.org/8">other cool stuff</a>.</p>
 
 <p>One of the new changes added to Drupal8 is that Views module is now <a href="https://www.drupal.org/node/1912118">part of the core</a>, which is something that makes a lot of sense, since Views is part of pretty much all Drupal sites.</p>
 
@@ -40,7 +108,7 @@
 
 <p>I want a service that returns a list of cars in sale in JSON format, so Drupal will take care of managing the content, and on a later post i&rsquo;m currently working on, we&rsquo;ll consume the API with Angular2.</p>
 
-<p>Let&rsquo;s create a new content type called <code>Car</code> and add some fields for <code>Price</code>, <code>Photo</code>, <code>Brand</code>, <code>Model</code> and <code>Type</code>.  Go to <strong><em>Structure > Content Types > Add Content Type</em></strong> and fill the requested fields. For the <code>Title</code> field label it as <code>Name</code>. Here&rsquo;s a photo of how my content type looks:
+<p>Let&rsquo;s create a new content type called <code>Car</code> and add some fields for <code>Price</code>, <code>Photo</code>, <code>Brand</code>, <code>Model</code> and <code>Type</code>.  Go to <strong><em>Structure > Content Types > Add Content Type</em></strong> and fill the requested fields. For the <code>Title</code> field label it as <code>Name</code>. Here&rsquo;s a picture of how my content type looks:
 <img src="/images/content_type.png"></p>
 
 <p>Now, we might want to create a few cars before we create the service so we have content to return. Also you can use the <a href="https://www.drupal.org/project/devel">Devel</a> to generate &ldquo;Dummy&rdquo; content for testing. If you are using Drupal Console just use <code>$ drupal module:download devel</code> and then <code>$ drupal module:install devel</code>. Then just go to <strong><em>Configuration > Development > Generate content</em></strong>, and create a bunch of cars.</p>
@@ -50,7 +118,47 @@
 <p>Now let’s create our view. Go to <strong><em>Structure > Views > Add new view</em></strong>. Name it <code>Cars</code> and select <code>Cars</code> in the <strong>type</strong> selector.  We do not need to create a page or block, so uncheck those options to keep things simple and check <code>Provide a REST export</code> and define the path you wich the API respond to, in my case <code>api/cars/view</code>.
 <img src="/images/view_setup.png"></p>
 
-<p>After you hit <code>Save and edit</code> you will be prompted with a regular Drupal View UI, the only difference is that the output will be JSON. As any other View, you can control access by role, use contextual filters, sorting, etc.</p>
+<p>After you hit <code>Save and edit</code> you will be prompted with a regular Drupal View UI, the only difference is that the output will be JSON. As any other View, you can control access by role, use contextual filters, sorting, etc. By default, you will see all the data for every car, including metadata. You might want to pick the fields you wish to send on the JSON response by switching to <code>Show: Fields</code> in the <strong>FORMAT</strong> section. Now you can select all the fields you want to display on the <strong>FIELDS</strong> section, in my case I selected <code>Title</code>, <code>Brand</code>, <code>Price</code>, <code>Type</code>, <code>Photo</code>, and <code>Body</code>(description).
+<img src="/images/view-final.png"></p>
+
+<p>You can view your results in the path we defined when we created the view, im my case is <code>api/cars</code>. I have a LIVE example in the following URL: <code>http://dev-cars-api.pantheonsite.io/api/cars</code>. Right now as i&rsquo;m writing this post looks like this:</p>
+
+<pre><code>[{
+    "name": "Toyota Prado",
+    "brand": "Toyota",
+    "price": "$30000.00",
+    "type": "4X4",
+    "photo": "http://dev-cars-api.pantheonsite.io/sites/default/files/styles/large/public/2016-03/download.jpeg?itok=3QRT2liF",
+    "description": "New version, full extras. brand new"
+}, {
+    "name": "Toyota Vitz",
+    "brand": "Toyota",
+    "price": "$7500.00",
+    "type": "Sedan",
+    "photo": "http://dev-cars-api.pantheonsite.io/sites/default/files/styles/large/public/2016-03/Toyota_Yaris_front_20080104.jpg?itok=uJMZTbHm",
+    "description": "Small and compact, cheap and fast"
+}, {
+    "name": "Land Rover Defender",
+    "brand": "Land Rover",
+    "price": "$15000.00",
+    "type": "4X4",
+    "photo": "http://dev-cars-api.pantheonsite.io/sites/default/files/styles/large/public/2016-03/L550_15ACC_EXT_LOC02_V1_04__293-111196_500x330.jpg?itok=w5Gud-8b",
+    "description": "A great car in great conditions, it only has 4000miles and new whells"
+}, {
+    "name": "Mitsubishi Montero Sport",
+    "brand": "Mitsubishi",
+    "price": "$10000.00",
+    "type": "4X4",
+    "photo": "http://dev-cars-api.pantheonsite.io/sites/default/files/styles/large/public/2016-03/1342471999-2000_Mitsubishi_Montero_Sport_0.JPG?itok=91O63bRS",
+    "description": "Beautiful 4x4u00a0Mitsubishi Montero Sport 99' model for 7 passengers"
+}]
+</code></pre>
+
+<p>You might be wondering how I changed the labels of each field so it doesn&rsquo;t display like <code>field_photo</code> for example? Well it&rsquo;s quite simple, just click in the <strong>field settings</strong> located at the <strong>FORMAT</strong> section, and you will be able to define an alias for each field.</p>
+
+<p><img src="/images/alias.png"></p>
+
+<p><strong>And that&rsquo;s it!</strong> We have our endpoint returning the cars data as JSON and we can consume it wherever we want. If you have any questions shoot me a comment, a tweet or an email.</p>
 ]]></content>
   </entry>
   
